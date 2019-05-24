@@ -2,6 +2,7 @@ package com.rodrigo.integration.resource;
 
 import java.net.URI;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -33,13 +34,15 @@ public class UserResource {
 	}
 	
 	@GetMapping
-	public ResponseEntity<List<User>> findAll() {
+	public ResponseEntity<List<UserDTO>> findAll() {
 		List<User> list = service.findAll();
-		return ResponseEntity.ok().body(list);
+		List<UserDTO> listDto = list.stream().map(x -> new UserDTO(x)).collect(Collectors.toList());
+		return ResponseEntity.ok().body(listDto);
 	}
 	
 	@PostMapping
-	public ResponseEntity<Void> insert(@RequestBody User user) {
+	public ResponseEntity<Void> insert(@RequestBody UserDTO userObj) {
+		User user = service.fromDto(userObj);
 		user = service.insert(user);
 		
 		URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(user.getId()).toUri();
@@ -47,7 +50,8 @@ public class UserResource {
 	}
 	
 	@PutMapping(value="/{id}")
-	public ResponseEntity<Void> insert(@RequestBody User user, @PathVariable String id) {
+	public ResponseEntity<Void> update(@RequestBody UserDTO userObj, @PathVariable String id) {
+		User user = service.fromDto(userObj);
 		user.setId(id);
 		user = service.update(user);
 		return ResponseEntity.noContent().build();

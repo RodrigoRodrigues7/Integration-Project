@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.rodrigo.integration.domain.User;
+import com.rodrigo.integration.domain.UserDTO;
 import com.rodrigo.integration.repository.UserRepository;
 import com.rodrigo.integration.service.Exceptions.ObjectNotFoundException;
 
@@ -39,6 +40,10 @@ public class UserService {
 	public void delete(String id) {
 		findById(id);
 		userRepo.deleteById(id);
+	}
+	
+	public User fromDto(UserDTO userDto) {
+		return new User(userDto.getId(), userDto.getUsername(), userDto.getEmail());
 	}
 	
 	private void updateUser(User newUser, User user) {
