@@ -1,6 +1,7 @@
 package com.rodrigo.integration.domain;
 
 import java.io.Serializable;
+import java.util.Date;
 
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
@@ -13,22 +14,31 @@ public class Note implements Serializable {
 	
 	@Id
 	private String id;
+	private Date date;
 	private String title;
 	private String description;
 	private String tag;
-//	private Date date;
-//	
+	
 //	private UserDTO user;
 	
 	public Note() {
 	}
 	
-	public Note(String id, String title, String description, Tag tag) {
+	public Note(String id, Date date,String title, String description, Tag tag) {
 		super();
 		this.id = id;
+		this.date = date;
 		this.title = title;
 		this.description = description;
 		this.tag = (tag==null) ? null : tag.getName();
+	}
+
+	public Date getDate() {
+		return date;
+	}
+
+	public void setDate(Date date) {
+		this.date = date;
 	}
 
 	public String getId() {

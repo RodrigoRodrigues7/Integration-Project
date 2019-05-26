@@ -1,6 +1,8 @@
 package com.rodrigo.integration.config;
 
+import java.text.SimpleDateFormat;
 import java.util.Arrays;
+import java.util.TimeZone;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
@@ -25,8 +27,8 @@ public class Instantiation implements CommandLineRunner {
 	public void run(String... args) throws Exception {
 		// TODO Auto-generated method stub
 
-//		SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
-//		sdf.setTimeZone(TimeZone.getTimeZone("GMT"));
+		SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+		sdf.setTimeZone(TimeZone.getTimeZone("GMT"));
 
 		userRepo.deleteAll();
 		noteRepo.deleteAll();
@@ -37,9 +39,9 @@ public class Instantiation implements CommandLineRunner {
 		
 		userRepo.saveAll(Arrays.asList(cheif, johnson, arbiter));
 
-		Note noteC = new Note(null, "Finnish the Fight", "A simple guide on how to finnish the goddam fight", Tag.UNSC);
-		Note noteJ = new Note(null, "Fight for Her", "Fight for the earth marines", Tag.UNSC);
-		Note noteA = new Note(null, "Invade Reach", "Today is the invasion of the covenant armada on Reach", Tag.COVENANT);
+		Note noteC = new Note(null, sdf.parse("21/08/2554"), "Finnish the Fight", "A simple guide on how to finnish the goddam fight", Tag.UNSC);
+		Note noteJ = new Note(null, sdf.parse("12/04/2552"),"Fight for Her", "Fight for the earth marines", Tag.UNSC);
+		Note noteA = new Note(null, sdf.parse("05/04/2552"),"Invade Reach", "Today is the invasion of the covenant armada on Reach", Tag.COVENANT);
 		
 		noteRepo.saveAll(Arrays.asList(noteC, noteJ, noteA));
 		

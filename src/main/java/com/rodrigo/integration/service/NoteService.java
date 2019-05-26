@@ -1,5 +1,6 @@
 package com.rodrigo.integration.service;
 
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
@@ -26,6 +27,7 @@ public class NoteService {
 	}
 	
 	public Note insert(Note note) {
+		note.setDate(new Date());
 		return noteRepo.insert(note);
 	}
 	

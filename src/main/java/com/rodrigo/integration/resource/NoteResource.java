@@ -40,7 +40,6 @@ public class NoteResource {
 	@PostMapping
 	public ResponseEntity<Void> insert(@RequestBody Note note) {
 		note = service.insert(note);
-		
 		URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(note.getId()).toUri();
 		return ResponseEntity.created(uri).build();
 	}
