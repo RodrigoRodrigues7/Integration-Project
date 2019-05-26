@@ -55,8 +55,8 @@ public class Note implements Serializable {
 		this.description = description;
 	}
 
-	public String getTag() {
-		return tag;
+	public Tag getTag() {
+		return Tag.toEnum(tag);
 	}
 
 	public void setTag(Tag tag) {
