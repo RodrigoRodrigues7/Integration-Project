@@ -1,10 +1,11 @@
 package com.rodrigo.integration.domain;
 
 import java.io.Serializable;
-import java.util.Date;
 
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
+
+import com.rodrigo.integration.domain.enums.Tag;
 
 @Document(collection = "note")
 public class Note implements Serializable {
@@ -15,21 +16,19 @@ public class Note implements Serializable {
 	private String title;
 	private String description;
 	private String tag;
-	private Date date;
-	
-	private UserDTO user;
+//	private Date date;
+//	
+//	private UserDTO user;
 	
 	public Note() {
 	}
 	
-	public Note(String id, String title, String description, String tag, Date date, UserDTO user) {
+	public Note(String id, String title, String description, Tag tag) {
 		super();
 		this.id = id;
 		this.title = title;
 		this.description = description;
-		this.tag = tag;
-		this.date = date;
-		this.user = user;
+		this.tag = (tag==null) ? null : tag.getName();
 	}
 
 	public String getId() {
@@ -60,24 +59,8 @@ public class Note implements Serializable {
 		return tag;
 	}
 
-	public void setTag(String tag) {
-		this.tag = tag;
-	}
-
-	public Date getDate() {
-		return date;
-	}
-
-	public void setDate(Date date) {
-		this.date = date;
-	}
-
-	public UserDTO getuser() {
-		return user;
-	}
-
-	public void setuser(UserDTO user) {
-		this.user = user;
+	public void setTag(Tag tag) {
+		this.tag = tag.getName();
 	}
 
 	@Override
