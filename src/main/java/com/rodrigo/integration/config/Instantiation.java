@@ -8,9 +8,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Configuration;
 
+import com.rodrigo.integration.domain.UserDTO;
 import com.rodrigo.integration.domain.Note;
 import com.rodrigo.integration.domain.User;
-import com.rodrigo.integration.domain.UserDTO;
 import com.rodrigo.integration.repository.NoteRepository;
 import com.rodrigo.integration.repository.UserRepository;
 
@@ -36,6 +36,8 @@ public class Instantiation implements CommandLineRunner {
 		User cheif = new User(null, "Master Cheif", "sierra177@gmail.com");
 		User johnson = new User(null, "Sergeant Johnson", "Johnson@gmail.com");
 		User arbiter = new User(null, "Thel Vadamee", "Sangheili@gmail.com");
+		
+		userRepo.saveAll(Arrays.asList(cheif, johnson, arbiter));
 
 		Note noteC = new Note(null, "Finnish the Fight", "A simple guide on how to finnish the goddam fight", "unsc", sdf.parse("24/05/2554"), new UserDTO(cheif));
 		Note noteJ = new Note(null, "Fight for Her", "Fight for the earth marines", "unsc", sdf.parse("21/02/2552"), new UserDTO(johnson));
@@ -48,6 +50,7 @@ public class Instantiation implements CommandLineRunner {
 		arbiter.getNotes().addAll(Arrays.asList(noteA));
 		
 		userRepo.saveAll(Arrays.asList(cheif, johnson, arbiter));
+		
 	}
 
 }
